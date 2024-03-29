@@ -20,6 +20,7 @@ public class CalculatorController {
                                        @RequestParam int countDays,
                                        @RequestParam(required = false) String startVacationDay) {
 
-        return calculatorService.calculatePayVacation(salaryForYear, countDays, startVacationDay);
+        LocalDate startVacationLocalDate = LocalDate.parse(startVacationDay);
+        return calculatorService.calculatePayVacation(salaryForYear, countDays, startVacationLocalDate);
     }
 }

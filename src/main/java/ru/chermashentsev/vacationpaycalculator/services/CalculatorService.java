@@ -11,21 +11,16 @@ import java.util.stream.IntStream;
 @Service
 public class CalculatorService {
 
-    public double calculatePayVacation(double salaryForYear, int countDays, String startVacationDay) {
+    public double calculatePayVacation(double salaryForYear, int countDays, LocalDate startVacationDay) {
         double dailySalary = salaryForYear / 365;
 
         if (startVacationDay == null) {
             return dailySalary * countDays;
         }
 
-        LocalDate startVacationLocalDate = LocalDate.parse(startVacationDay);
-
         List<LocalDate> vacationDays = IntStream.range(0, countDays)
-                .mapToObj(startVacationLocalDate::plusDays)
+                .mapToObj(startVacationDay::plusDays)
                 .collect(Collectors.toList());
-
-        //Delete
-        System.out.println(vacationDays);
 
         long workDays = vacationDays.stream()
                 .filter(date -> !isWeekend(date) && !isHoliday(date))
